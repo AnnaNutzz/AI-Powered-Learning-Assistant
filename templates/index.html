@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Home</title></head>
+<body>
+    <h1>Welcome</h1>
+    {% if 'username' in session %}
+        <p>Hello, {{ session['username'] }}! <a href="{{ url_for('dashboard') }}">Go to Dashboard</a></p>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a></p>
+    {% endif %}
+</body>
+</html>

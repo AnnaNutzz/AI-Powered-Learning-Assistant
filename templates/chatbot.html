@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        #chat-box {
+            background-color: #fff;
+            padding: 20px;
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .user, .bot {
+            margin-bottom: 10px;
+        }
+        .user {
+            color: blue;
+        }
+        .bot {
+            color: green;
+        }
+        #message {
+            width: 80%;
+            padding: 10px;
+        }
+        #send-btn {
+            padding: 10px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Talk to Your Educational Assistant</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="message" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
+
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const messageInput = document.getElementById('message');
+        const sendBtn = document.getElementById('send-btn');
+
+        sendBtn.onclick = async () => {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Append user message
+            chatBox.innerHTML += `<div class="user"><strong>You:</strong> ${message}</div>`;
+            messageInput.value = "";
+
+            // Send to backend
+            try {
+                const response = await fetch('/chatbot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `message=${encodeURIComponent(message)}`
+                });
+
+                const data = await response.json();
+                chatBox.innerHTML += `<div class="bot"><strong>Bot:</strong> ${data.response}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (err) {
+                chatBox.innerHTML += `<div class="bot"><strong>Bot:</strong> Error occurred!</div>`;
+            }
+        };
+
+        // Allow Enter key to send
+        messageInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                sendBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

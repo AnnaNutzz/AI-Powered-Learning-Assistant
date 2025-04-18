@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+<p><strong>Learning Type:</strong> {{ learning_type }}</p>
+<p><strong>Learning Speed:</strong> {{ learning_speed }}</p>
+
+<h3>Suggestions</h3>
+<ul>
+    {% for suggestion in suggestions %}
+        <li>{{ suggestion }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Upload Study Material</h3>
+<form id="uploadForm" action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".pdf,.ppt,.pptx,.png,.jpg,.jpeg" required><br><br>
+    <label><input type="checkbox" name="use_ai" value="true"> Use AI Summarization</label><br><br>
+    <button type="submit" class="btn btn-primary">Upload & Generate Notes</button>
+</form>
+
+<div id="uploadResult" style="margin-top: 20px;"></div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        document.getElementById('uploadResult').innerHTML = `
+            <strong>${result.message}</strong><br><br>
+            ${result.summary ? `<h4>Generated Notes:</h4><p>${result.summary}</p>` : ''}
+        `;
+    });
+</script>
+{% endblock %}

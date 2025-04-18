@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Learning Style Quiz</h1>
+    <form method="POST" action="{{ url_for('quiz_result') }}">
+        {% for question in questions %}
+            <div class="form-group">
+                <label>{{ question.question }}</label>
+                {% for option in question.options %}
+                    <div class="form-check">
+                        <input type="radio" name="answer{{ i }}" value="{{ option }}" class="form-check-input" required>
+                        <label class="form-check-label">{{ option }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <label>How fast do you learn?</label>
+            <select name="learning_speed" class="form-control" required>
+                <option value="Slow">Slow</option>
+                <option value="Average">Average</option>
+                <option value="Fast">Fast</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

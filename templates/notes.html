@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>AI Generated Notes</h2>
+    <div class="card p-3 my-3">
+        <pre style="white-space: pre-wrap;">{{ notes }}</pre>
+    </div>
+    <a href="{{ url_for('download_notes') }}" class="btn btn-success">Download as Word Doc</a>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary ml-2">Back to Dashboard</a>
+{% endblock %}

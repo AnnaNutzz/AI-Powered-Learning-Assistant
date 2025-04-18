@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Grade Level</title>
+</head>
+<body>
+    <h1>Select Grade Level</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('select_grade_level') }}">
+        <label for="grade_level">Choose a grade level:</label>
+        <select name="grade_level" id="grade_level">
+            <option value="school">School</option>
+            <option value="college">College</option>
+        </select>
+        <button type="submit">Start Quiz</button>
+    </form>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

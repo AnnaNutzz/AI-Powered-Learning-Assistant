@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome, {{ session.username }}!</h1>
+    <p>Your learning type: {{ learning_type }}</p>
+    <a href="{{ url_for('quiz', redo='true') }}" class="btn btn-primary">Retake Quiz</a>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Go to Dashboard</a>
+    <a class="nav-item nav-link" href="{{ url_for('quiz') }}">Take Quiz</a>
+
+{% endblock %}
