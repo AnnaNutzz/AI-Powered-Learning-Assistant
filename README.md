@@ -83,7 +83,3 @@ app.py              - Main Flask app
 - Notion SDK      #doesn't work
 - Ollama
 - python-dotenv
-
-## 📬 Contact
-
-For any queries or improvements, feel free to reach out or open a pull request!
