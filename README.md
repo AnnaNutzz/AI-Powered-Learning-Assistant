@@ -68,7 +68,6 @@ Visit http://localhost:5000
 ```
 /uploads            - Uploaded files
 /templates          - HTML templates
-/static             - CSS/JS files
 .env                - Secrets and config
 app.py              - Main Flask app
 ```
